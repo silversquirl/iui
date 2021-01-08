@@ -34,7 +34,7 @@ func (col Col) heights(total int) []int {
 func (col Col) Draw(ctx DrawContext) {
 	heights := col.heights(ctx.Box.Dy())
 	width := ctx.Box.Dx()
-	y := ctx.Box.Min.Y
+	y := ctx.Box.Max.Y
 	for i, comp := range col {
 		size := comp.Size(image.Pt(width, heights[i]))
 		xoff := (width - size.X) / 2
@@ -42,9 +42,9 @@ func (col Col) Draw(ctx DrawContext) {
 		if xoff < 0 {
 			panic("Child of col is wider than permitted")
 		}
-		y += yoff
-		box := image.Rect(ctx.Box.Min.X+xoff, y, ctx.Box.Max.X-xoff, y+size.Y)
-		y += size.Y + yoff
+		y -= yoff
+		box := image.Rect(ctx.Box.Min.X+xoff, y-size.Y, ctx.Box.Max.X-xoff, y)
+		y -= size.Y + yoff
 
 		ctx.Scissor(scissorBox(box))
 		comp.Draw(ctx.WithBox(box))
