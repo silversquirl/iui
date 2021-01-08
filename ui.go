@@ -10,8 +10,8 @@ type UI struct {
 	gl  gll.GL300
 	box image.Rectangle
 
-	mouse  Vec2
-	clicks []Vec2
+	mouse  image.Point
+	clicks []image.Point
 }
 
 func New(gl gll.GL300, x0, y0, x1, y1 int) *UI {
@@ -21,8 +21,8 @@ func New(gl gll.GL300, x0, y0, x1, y1 int) *UI {
 	}
 }
 
-func (ui *UI) MoveMouse(x, y float64) {
-	ui.mouse = Vec2{x, y}
+func (ui *UI) MoveMouse(x, y int) {
+	ui.mouse = image.Pt(x, y)
 }
 func (ui *UI) Click() {
 	ui.clicks = append(ui.clicks, ui.mouse)

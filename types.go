@@ -14,12 +14,24 @@ type Component interface {
 type DrawContext struct {
 	gll.GL300
 	Box    image.Rectangle
-	Mouse  Vec2
-	Clicks []Vec2
+	Mouse  image.Point
+	Clicks []image.Point
 }
-type Vec2 struct{ X, Y float64 }
 
 func (ctx DrawContext) WithBox(box image.Rectangle) DrawContext {
 	ctx.Box = box
+
+	if !ctx.Mouse.In(ctx.Box) {
+		ctx.Mouse = image.Pt(-1, -1)
+	}
+
+	clicks := make([]image.Point, 0, len(ctx.Clicks))
+	for _, click := range ctx.Clicks {
+		if click.In(ctx.Box) {
+			clicks = append(clicks, click)
+		}
+	}
+	ctx.Clicks = clicks
+
 	return ctx
 }
