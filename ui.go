@@ -31,8 +31,12 @@ func (ui *UI) Click() {
 func (ui *UI) Draw(comp Component) {
 	box := ui.box
 	size := comp.Size(box.Size())
-	// Center within available space
 	dx, dy := box.Dx()-size.X, box.Dy()-size.Y
+	if dx < 0 || dy < 0 {
+		panic("Component reported size greater than available area")
+	}
+
+	// Center within available space
 	box.Min.X += dx / 2
 	box.Max.X -= dx - dx/2
 	box.Min.Y += dy / 2
@@ -41,7 +45,7 @@ func (ui *UI) Draw(comp Component) {
 	// Constrain rendering to box
 	ui.gl.Enable(gll.SCISSOR_TEST)
 	defer ui.gl.Disable(gll.SCISSOR_TEST)
-	ui.gl.Scissor(int32(box.Min.X), int32(box.Min.Y), int32(box.Max.X), int32(box.Max.Y))
+	ui.gl.Scissor(scissorBox(box))
 
 	comp.Draw(DrawContext{ui.gl, ui.box, ui.mouse, ui.clicks})
 	ui.clicks = ui.clicks[:0]

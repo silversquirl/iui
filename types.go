@@ -18,3 +18,8 @@ type DrawContext struct {
 	Clicks []Vec2
 }
 type Vec2 struct{ X, Y float64 }
+
+func (ctx DrawContext) WithBox(box image.Rectangle) DrawContext {
+	ctx.Box = box
+	return ctx
+}
