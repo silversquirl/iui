@@ -62,6 +62,6 @@ func (ui *UI) Draw(comp Component) {
 	defer ui.gl.Disable(gll.BLEND)
 	ui.gl.BlendFunc(gll.ONE, gll.ONE_MINUS_SRC_ALPHA)
 
-	comp.Draw(DrawContext{ui.gl, ui.sreg, ui.box, ui.mouse, ui.clicks})
+	comp.Draw(DrawContext{ui.gl, ui.sreg, box, ui.mouse, ui.clicks})
 	ui.clicks = ui.clicks[:0]
 }
