@@ -1,5 +1,8 @@
-github.com/go-gl/glfw v0.0.0-20201108214237-06ea97f0c265 h1:y+9kl/LaBMwLfNwCg5BbnHIWBGKeYokXTSBhGnwWcB8=
-github.com/go-gl/glfw/v3.3/glfw v0.0.0-20201108214237-06ea97f0c265 h1:BcbKYUZo/TKPsiSh7LymK3p+TNAJJW3OfGO/21sBbiA=
-github.com/go-gl/glfw/v3.3/glfw v0.0.0-20201108214237-06ea97f0c265/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
-github.com/vktec/gll v0.0.0-20210108052018-d83e30e83d44 h1:K4DzRPwYJNMJhKYzbhtZ2Fp5TdFFnHWlfP8QqJrzePI=
-github.com/vktec/gll v0.0.0-20210108052018-d83e30e83d44/go.mod h1:EJnjBeNP+iObv6KoDSzpnmTosaOinHQJtP/e//CogAI=
+github.com/vktec/gll v0.0.0-20210108105407-a379a90b0923 h1:NzNj2+P9zuju7FvQVXhkx1xIWEjxsgo7OdEUUJWvW2s=
+github.com/vktec/gll v0.0.0-20210108105407-a379a90b0923/go.mod h1:EJnjBeNP+iObv6KoDSzpnmTosaOinHQJtP/e//CogAI=
+github.com/vktec/gll v0.0.0-20210108112649-35a88b488104 h1:gqOu7MrgcpZgB3RWj2BxAdYaTKPYH6/rJL3T8pxfDPM=
+github.com/vktec/gll v0.0.0-20210108112649-35a88b488104/go.mod h1:EJnjBeNP+iObv6KoDSzpnmTosaOinHQJtP/e//CogAI=
+golang.org/x/image v0.0.0-20201208152932-35266b937fa6 h1:nfeHNc1nAqecKCy2FCy4HY+soOOe5sDLJ/gZLbx6GYI=
+golang.org/x/image v0.0.0-20201208152932-35266b937fa6/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
+golang.org/x/text v0.3.0 h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=
+golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=

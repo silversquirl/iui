@@ -7,18 +7,28 @@ import (
 )
 
 type UI struct {
-	gl  gll.GL300
-	box image.Rectangle
+	gl   gll.GL300
+	box  image.Rectangle
+	vao  uint32
+	sreg ShaderRegistry
 
 	mouse  image.Point
 	clicks []image.Point
 }
 
-func New(gl gll.GL300, x0, y0, x1, y1 int) *UI {
-	return &UI{
-		gl:  gl,
-		box: image.Rect(x0, y0, x1, y1),
+func New(gl gll.GL300, x0, y0, x1, y1 int) (ui *UI, err error) {
+	ui = &UI{gl: gl}
+	ui.box = image.Rect(x0, y0, x1, y1)
+
+	ui.sreg, err = buildShaders(gl)
+	if err != nil {
+		return nil, err
 	}
+
+	gl.GenVertexArrays(1, &ui.vao)
+	gl.BindVertexArray(ui.vao)
+
+	return ui, nil
 }
 
 func (ui *UI) MoveMouse(x, y int) {
@@ -47,6 +57,6 @@ func (ui *UI) Draw(comp Component) {
 	defer ui.gl.Disable(gll.SCISSOR_TEST)
 	ui.gl.Scissor(scissorBox(box))
 
-	comp.Draw(DrawContext{ui.gl, ui.box, ui.mouse, ui.clicks})
+	comp.Draw(DrawContext{ui.gl, ui.sreg, ui.box, ui.mouse, ui.clicks})
 	ui.clicks = ui.clicks[:0]
 }

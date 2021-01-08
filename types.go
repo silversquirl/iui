@@ -13,6 +13,7 @@ type Component interface {
 
 type DrawContext struct {
 	gll.GL300
+	ShaderRegistry
 	Box    image.Rectangle
 	Mouse  image.Point
 	Clicks []image.Point
