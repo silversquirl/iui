@@ -5,8 +5,10 @@ import "image"
 type Col []Component
 
 func (col Col) Size(avail image.Point) image.Point {
+	heights := col.heights(avail.Y)
 	maxx := 0
-	for _, size := range col.sizes(avail) {
+	for i, comp := range col {
+		size := comp.Size(image.Pt(avail.X, heights[i]))
 		if size.X > maxx {
 			maxx = size.X
 		}
@@ -14,33 +16,35 @@ func (col Col) Size(avail image.Point) image.Point {
 	return image.Pt(maxx, avail.Y)
 }
 
-func (col Col) sizes(avail image.Point) []image.Point {
-	sizes := make([]image.Point, len(col))
+func (col Col) heights(total int) []int {
+	heights := make([]int, len(col))
 	// FIXME: super naive sizing algorithm
-	height := avail.Y / len(col)
-	extra := avail.Y % len(col)
-	for i, comp := range col {
-		h := height
+	height := total / len(col)
+	extra := total % len(col)
+	for i := range heights {
+		heights[i] = height
 		if extra > 0 {
 			extra--
-			h++
+			heights[i]++
 		}
-		sizes[i] = comp.Size(image.Pt(avail.X, h))
 	}
-	return sizes
+	return heights
 }
 
 func (col Col) Draw(ctx DrawContext) {
-	sizes := col.sizes(ctx.Box.Size())
+	heights := col.heights(ctx.Box.Dy())
 	width := ctx.Box.Dx()
 	y := ctx.Box.Min.Y
 	for i, comp := range col {
-		xoff := (width - sizes[i].X) / 2
+		size := comp.Size(image.Pt(width, heights[i]))
+		xoff := (width - size.X) / 2
+		yoff := (heights[i] - size.Y) / 2
 		if xoff < 0 {
 			panic("Child of col is wider than permitted")
 		}
-		box := image.Rect(ctx.Box.Min.X+xoff, y, ctx.Box.Max.X-xoff, y+sizes[i].Y)
-		y += sizes[i].Y
+		y += yoff
+		box := image.Rect(ctx.Box.Min.X+xoff, y, ctx.Box.Max.X-xoff, y+size.Y)
+		y += size.Y + yoff
 
 		ctx.Scissor(scissorBox(box))
 		comp.Draw(ctx.WithBox(box))
