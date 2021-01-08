@@ -20,19 +20,22 @@ type DrawContext struct {
 }
 
 func (ctx DrawContext) WithBox(box image.Rectangle) DrawContext {
-	ctx.Box = box
-
-	if !ctx.Mouse.In(ctx.Box) {
+	mouse := ctx.Mouse.Add(ctx.Box.Min)
+	if mouse.In(box) {
+		ctx.Mouse = mouse.Sub(box.Min)
+	} else {
 		ctx.Mouse = image.Pt(-1, -1)
 	}
 
 	clicks := make([]image.Point, 0, len(ctx.Clicks))
 	for _, click := range ctx.Clicks {
-		if click.In(ctx.Box) {
-			clicks = append(clicks, click)
+		click = click.Add(ctx.Box.Min)
+		if click.In(box) {
+			clicks = append(clicks, click.Sub(box.Min))
 		}
 	}
 	ctx.Clicks = clicks
 
+	ctx.Box = box
 	return ctx
 }
