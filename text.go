@@ -3,8 +3,6 @@ package iui
 import (
 	"image"
 	"image/color"
-	"image/png"
-	"os"
 
 	"github.com/vktec/gll"
 	"golang.org/x/image/font"
@@ -102,12 +100,6 @@ func (t *Text) Draw(ctx DrawContext) {
 		Face: t.face(),
 	}
 	draw.DrawString(t.Text)
-	f, err := os.Create("out.png")
-	if err != nil {
-		panic(err)
-	}
-	png.Encode(f, dst)
-	f.Close()
 
 	// Upload texture
 	ctx.ActiveTexture(gll.TEXTURE0)
