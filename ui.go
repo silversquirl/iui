@@ -31,6 +31,9 @@ func New(gl gll.GL300, x0, y0, x1, y1 int) (ui *UI, err error) {
 	return ui, nil
 }
 
+func (ui *UI) Resize(x0, y0, x1, y1 int) {
+	ui.box = image.Rect(x0, y0, x1, y1)
+}
 func (ui *UI) MoveMouse(x, y int) {
 	ui.mouse = image.Pt(x, ui.box.Max.Y-y)
 }
