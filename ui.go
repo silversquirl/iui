@@ -22,7 +22,7 @@ func New(gl gll.GL300, x0, y0, x1, y1 int) *UI {
 }
 
 func (ui *UI) MoveMouse(x, y int) {
-	ui.mouse = image.Pt(x, y)
+	ui.mouse = image.Pt(x, ui.box.Max.Y-y)
 }
 func (ui *UI) Click() {
 	ui.clicks = append(ui.clicks, ui.mouse)

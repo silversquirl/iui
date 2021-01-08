@@ -20,12 +20,12 @@ func (row Row) sizes(avail image.Point) []image.Point {
 	width := avail.X / len(row)
 	extra := avail.X % len(row)
 	for i, comp := range row {
-		cw := width
+		w := width
 		if extra > 0 {
 			extra--
-			cw++
+			w++
 		}
-		sizes[i] = comp.Size(image.Pt(cw, avail.Y))
+		sizes[i] = comp.Size(image.Pt(w, avail.Y))
 	}
 	return sizes
 }
