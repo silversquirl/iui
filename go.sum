@@ -1,0 +1,5 @@
+github.com/go-gl/glfw v0.0.0-20201108214237-06ea97f0c265 h1:y+9kl/LaBMwLfNwCg5BbnHIWBGKeYokXTSBhGnwWcB8=
+github.com/go-gl/glfw/v3.3/glfw v0.0.0-20201108214237-06ea97f0c265 h1:BcbKYUZo/TKPsiSh7LymK3p+TNAJJW3OfGO/21sBbiA=
+github.com/go-gl/glfw/v3.3/glfw v0.0.0-20201108214237-06ea97f0c265/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
+github.com/vktec/gll v0.0.0-20210108052018-d83e30e83d44 h1:K4DzRPwYJNMJhKYzbhtZ2Fp5TdFFnHWlfP8QqJrzePI=
+github.com/vktec/gll v0.0.0-20210108052018-d83e30e83d44/go.mod h1:EJnjBeNP+iObv6KoDSzpnmTosaOinHQJtP/e//CogAI=

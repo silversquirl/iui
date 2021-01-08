@@ -1,0 +1,48 @@
+package iui
+
+import (
+	"image"
+
+	"github.com/vktec/gll"
+)
+
+type UI struct {
+	gl  gll.GL300
+	box image.Rectangle
+
+	mouse  Vec2
+	clicks []Vec2
+}
+
+func New(gl gll.GL300, x0, y0, x1, y1 int) *UI {
+	return &UI{
+		gl:  gl,
+		box: image.Rect(x0, y0, x1, y1),
+	}
+}
+
+func (ui *UI) MoveMouse(x, y float64) {
+	ui.mouse = Vec2{x, y}
+}
+func (ui *UI) Click() {
+	ui.clicks = append(ui.clicks, ui.mouse)
+}
+
+func (ui *UI) Draw(comp Component) {
+	box := ui.box
+	size := comp.Size(box.Size())
+	// Center within available space
+	dx, dy := box.Dx()-size.X, box.Dy()-size.Y
+	box.Min.X += dx / 2
+	box.Max.X -= dx - dx/2
+	box.Min.Y += dy / 2
+	box.Max.Y -= dy - dy/2
+
+	// Constrain rendering to box
+	ui.gl.Enable(gll.SCISSOR_TEST)
+	defer ui.gl.Disable(gll.SCISSOR_TEST)
+	ui.gl.Scissor(int32(box.Min.X), int32(box.Min.Y), int32(box.Max.X), int32(box.Max.Y))
+
+	comp.Draw(DrawContext{ui.gl, ui.box, ui.mouse, ui.clicks})
+	ui.clicks = ui.clicks[:0]
+}
